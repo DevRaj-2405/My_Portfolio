@@ -1,0 +1,359 @@
+.resume {
+    width: 100%;
+    min-height: 100%;
+    padding-bottom: 60px;
+
+    // =====================================================
+    // MAIN TWO-COLUMN LAYOUT
+    // =====================================================
+
+    &__content {
+        width: 100%;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        column-gap: 70px;
+
+        padding: 35px 45px 20px;
+    }
+
+
+    // =====================================================
+    // EXPERIENCE / EDUCATION COLUMN
+    // =====================================================
+
+    &__column {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    // =====================================================
+    // EXPERIENCE / EDUCATION HEADING
+    // =====================================================
+
+    &__column__heading {
+        position: relative;
+
+        display: inline-block;
+
+        margin: 0 0 40px;
+
+        padding-bottom: 9px;
+
+        color: #ffffff;
+
+        font-size: 28px;
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+        text-align: center;
+
+
+        // YELLOW UNDERLINE
+        &::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background-color: var(--yellow-theme-main-color);
+        }
+    }
+
+
+    // =====================================================
+    // TIMELINE
+    // =====================================================
+
+    .vertical-timeline {
+        width: 100%;
+
+        padding: 0;
+
+        margin: 0;
+    }
+
+
+    .vertical-timeline::before {
+        background: var(--yellow-theme-main-color);
+        width: 4px;
+    }
+
+
+    // =====================================================
+    // TIMELINE ELEMENT
+    // =====================================================
+
+    &__timeline-element {
+
+        margin: 0 0 45px;
+
+        padding: 0;
+
+
+        .vertical-timeline-element-content {
+            padding: 0;
+
+            background: transparent;
+
+            box-shadow: none;
+
+            border: none;
+        }
+
+
+        .vertical-timeline-element-content-arrow {
+            display: none;
+        }
+
+
+        .vertical-timeline-element-icon {
+            width: 48px;
+            height: 48px;
+
+            margin-left: -24px;
+
+            border: 4px solid #ffffff;
+
+            box-shadow: none;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+
+    // =====================================================
+    // RESUME CARD
+    // =====================================================
+
+    &__card {
+
+        width: calc(100% - 70px);
+
+        margin-left: 70px;
+
+        min-height: 170px;
+
+        padding: 24px 22px;
+
+        border: 1px solid var(--yellow-theme-main-color);
+
+        border-radius: 3px;
+
+        background: rgba(255, 255, 255, 0.01);
+
+
+        // CARD TITLE
+        h3 {
+            margin: 0 0 12px;
+
+            color: #ffffff;
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            line-height: 1.4;
+        }
+
+
+        // CARD SUBTITLE
+        h4 {
+            margin: 0 0 15px;
+
+            color: #ffffff;
+
+            font-size: 16px;
+
+            font-weight: 400;
+
+            line-height: 1.5;
+        }
+
+
+        // CARD DESCRIPTION
+        p {
+            margin: 0;
+
+            color: #ffffff;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+        }
+    }
+
+
+    // =====================================================
+    // VIEW MY RESUME BUTTON
+    // =====================================================
+
+    &__button-wrapper {
+
+        grid-column: 1 / -1;
+
+        width: 100%;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        margin-top: 10px;
+
+        padding-top: 20px;
+    }
+
+
+    &__download-btn {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        padding: 14px 32px;
+
+        min-width: 190px;
+
+        background-color: var(--yellow-theme-main-color);
+
+        color: #000000;
+
+        border: 2px solid var(--yellow-theme-main-color);
+
+        border-radius: 5px;
+
+        text-decoration: none;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.5px;
+
+        cursor: pointer;
+
+        transition: all 0.3s ease;
+
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+
+
+        &:hover {
+
+            background-color: transparent;
+
+            color: var(--yellow-theme-main-color);
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 7px 18px rgba(0, 0, 0, 0.45);
+        }
+    }
+}
+
+
+// =========================================================
+// TABLET
+// =========================================================
+
+@media only screen and (max-width: 900px) {
+
+    .resume {
+
+        &__content {
+
+            grid-template-columns: 1fr;
+
+            row-gap: 50px;
+
+            padding: 30px 25px;
+        }
+
+
+        &__button-wrapper {
+
+            grid-column: 1;
+
+            margin-top: 0;
+        }
+    }
+}
+
+
+// =========================================================
+// MOBILE
+// =========================================================
+
+@media only screen and (max-width: 600px) {
+
+    .resume {
+
+        &__content {
+
+            padding: 25px 15px;
+        }
+
+
+        &__column__heading {
+
+            font-size: 24px;
+
+            margin-bottom: 30px;
+        }
+
+
+        &__card {
+
+            width: calc(100% - 55px);
+
+            margin-left: 55px;
+
+            padding: 18px 16px;
+
+
+            h3 {
+                font-size: 16px;
+            }
+
+
+            h4 {
+                font-size: 14px;
+            }
+
+
+            p {
+                font-size: 13px;
+            }
+        }
+
+
+        &__download-btn {
+
+            padding: 12px 24px;
+
+            min-width: 170px;
+
+            font-size: 14px;
+        }
+    }
+}
