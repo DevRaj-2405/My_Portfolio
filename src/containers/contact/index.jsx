@@ -85,258 +85,375 @@
 
 
 import React, { useRef, useState } from "react";
+
 import PageHeaderContent from "../../components/pageHeaderContent";
+
 import { BsInfoCircleFill } from "react-icons/bs";
 import { Animate } from "react-simple-animate";
+
 import emailjs from "@emailjs/browser";
+
 import "./styles.scss";
 
 const Contact = () => {
-  const form = useRef();
+    const form = useRef();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    description: "",
-  });
-
-  const [errors, setErrors] = useState({});
-
-  const [message, setMessage] = useState("");
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData({
-      ...formData,
-      [name]: value,
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        description: "",
     });
 
-    // Remove error when user starts typing
-    setErrors({
-      ...errors,
-      [name]: "",
+    const [errors, setErrors] = useState({});
+    const [popup, setPopup] = useState({
+        show: false,
+        type: "",
+        title: "",
+        message: "",
     });
 
-    setMessage("");
-  };
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateForm = () => {
-    const newErrors = {};
+    const handleChange = (e) => {
+        const { name, value } = e.target;
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name needs to be filled.";
-    }
+        setFormData((previousData) => ({
+            ...previousData,
+            [name]: value,
+        }));
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email needs to be filled.";
-    } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
-    ) {
-      newErrors.email = "Please enter a valid email address.";
-    }
+        setErrors((previousErrors) => ({
+            ...previousErrors,
+            [name]: "",
+        }));
 
-    if (!formData.description.trim()) {
-      newErrors.description = "Description needs to be filled.";
-    }
-
-    setErrors(newErrors);
-
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setMessage("");
-
-    // Check fields first
-    if (!validateForm()) {
-      return;
-    }
-
-    /*
-      IMPORTANT:
-      Replace these three values with your EmailJS details.
-    */
-
-    emailjs
-      .sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        form.current,
-        {
-          publicKey: "YOUR_PUBLIC_KEY",
+        if (popup.show) {
+            setPopup({
+                show: false,
+                type: "",
+                title: "",
+                message: "",
+            });
         }
-      )
-      .then(
-        () => {
-          setMessage("Details added successfully!");
+    };
 
-          setFormData({
-            name: "",
-            email: "",
-            description: "",
-          });
+    const closePopup = () => {
+        setPopup({
+            show: false,
+            type: "",
+            title: "",
+            message: "",
+        });
+    };
 
-          setErrors({});
-        },
-        (error) => {
-          console.log("EmailJS Error:", error);
+    const validateForm = () => {
+        const newErrors = {};
 
-          setMessage(
-            "Something went wrong. Please try again later."
-          );
+        if (!formData.name.trim()) {
+            newErrors.name = "Please enter your name.";
         }
-      );
-  };
 
-  return (
-    <section id="contact" className="contact">
+        if (!formData.email.trim()) {
+            newErrors.email = "Please enter your email address.";
+        } else if (
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
+        ) {
+            newErrors.email = "Please enter a valid email address.";
+        }
 
-      <PageHeaderContent
-        headerText="My Contact"
-        icon={<BsInfoCircleFill size={40} />}
-      />
+        if (!formData.description.trim()) {
+            newErrors.description = "Please enter a description.";
+        }
 
-      <div className="contact__content">
+        setErrors(newErrors);
 
-        <Animate
-          play
-          duration={1}
-          delay={0}
-          start={{
-            transform: "translateX(-200px)",
-          }}
-          end={{
-            transform: "translateX(0px)",
-          }}
-        >
-          <h3 className="contact__content__header-text">
-            Let's Talk
-          </h3>
-        </Animate>
+        return Object.keys(newErrors).length === 0;
+    };
 
-        <Animate
-          play
-          duration={1}
-          delay={0}
-          start={{
-            transform: "translateX(200px)",
-          }}
-          end={{
-            transform: "translateX(0px)",
-          }}
-        >
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-          <form
-            ref={form}
-            className="contact__content__form"
-            onSubmit={handleSubmit}
-          >
+        closePopup();
 
-            <div className="contact__content__form__controlswrapper">
+        // Stop submission if validation fails
+        if (!validateForm()) {
+            const missingFields = [];
 
-              {/* NAME */}
-              <div>
-                <input
-                  required
-                  name="name"
-                  className={`inputName ${
-                    errors.name ? "input-error" : ""
-                  }`}
-                  type="text"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
+            if (!formData.name.trim()) {
+                missingFields.push("Name");
+            }
 
-                <label htmlFor="name" className="nameLabel">
-                  Name
-                </label>
+            if (!formData.email.trim()) {
+                missingFields.push("Email");
+            } else if (
+                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
+            ) {
+                missingFields.push("Valid Email");
+            }
 
-                {errors.name && (
-                  <span className="error-message">
-                    {errors.name}
-                  </span>
-                )}
-              </div>
+            if (!formData.description.trim()) {
+                missingFields.push("Description");
+            }
 
+            setPopup({
+                show: true,
+                type: "error",
+                title: "Please complete the form",
+                message: `Please fill in: ${missingFields.join(", ")}.`,
+            });
 
-              {/* EMAIL */}
-              <div>
-                <input
-                  required
-                  name="email"
-                  className={`inputEmail ${
-                    errors.email ? "input-error" : ""
-                  }`}
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
+            return;
+        }
 
-                <label htmlFor="email" className="emailLabel">
-                  Email
-                </label>
+        setIsSubmitting(true);
 
-                {errors.email && (
-                  <span className="error-message">
-                    {errors.email}
-                  </span>
-                )}
-              </div>
+        /*
+         * EmailJS
+         *
+         * Replace these three values with your actual EmailJS details
+         * when you want the form to send emails.
+         */
+        try {
+            await emailjs.sendForm(
+                "YOUR_SERVICE_ID",
+                "YOUR_TEMPLATE_ID",
+                form.current,
+                {
+                    publicKey: "YOUR_PUBLIC_KEY",
+                }
+            );
 
+            setPopup({
+                show: true,
+                type: "success",
+                title: "Details Submitted",
+                message:
+                    "Your details have been submitted successfully. Thank you for contacting me!",
+            });
 
-              {/* DESCRIPTION */}
-              <div>
-                <textarea
-                  required
-                  name="description"
-                  className={`inputDescription ${
-                    errors.description ? "input-error" : ""
-                  }`}
-                  rows="5"
-                  value={formData.description}
-                  onChange={handleChange}
-                />
+            setFormData({
+                name: "",
+                email: "",
+                description: "",
+            });
 
-                <label
-                  htmlFor="description"
-                  className="descriptionLabel"
+            setErrors({});
+        } catch (error) {
+            console.error("EmailJS Error:", error);
+
+            setPopup({
+                show: true,
+                type: "error",
+                title: "Submission Failed",
+                message:
+                    "Something went wrong while submitting your details. Please try again later.",
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    return (
+        <section id="contact" className="contact">
+
+            <PageHeaderContent
+                headerText="My Contact"
+                icon={<BsInfoCircleFill size={40} />}
+            />
+
+            <div className="contact__content">
+
+                <Animate
+                    play
+                    duration={1}
+                    delay={0}
+                    start={{
+                        transform: "translateX(-200px)",
+                    }}
+                    end={{
+                        transform: "translateX(0px)",
+                    }}
                 >
-                  Description
-                </label>
+                    <h3 className="contact__content__header-text">
+                        Let's Talk
+                    </h3>
+                </Animate>
 
-                {errors.description && (
-                  <span className="error-message">
-                    {errors.description}
-                  </span>
-                )}
-              </div>
+                <Animate
+                    play
+                    duration={1}
+                    delay={0}
+                    start={{
+                        transform: "translateX(200px)",
+                    }}
+                    end={{
+                        transform: "translateX(0px)",
+                    }}
+                >
+                    <form
+                        ref={form}
+                        className="contact__content__form"
+                        onSubmit={handleSubmit}
+                        noValidate
+                    >
+
+                        <div className="contact__content__form__controlswrapper">
+
+                            {/* NAME */}
+
+                            <div>
+                                <input
+                                    name="name"
+                                    className={`inputName ${
+                                        errors.name ? "input-error" : ""
+                                    }`}
+                                    type="text"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                />
+
+                                <label
+                                    htmlFor="name"
+                                    className="nameLabel"
+                                >
+                                    Name
+                                </label>
+
+                                {errors.name && (
+                                    <span className="error-message">
+                                        {errors.name}
+                                    </span>
+                                )}
+                            </div>
+
+
+                            {/* EMAIL */}
+
+                            <div>
+                                <input
+                                    name="email"
+                                    className={`inputEmail ${
+                                        errors.email ? "input-error" : ""
+                                    }`}
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
+
+                                <label
+                                    htmlFor="email"
+                                    className="emailLabel"
+                                >
+                                    Email
+                                </label>
+
+                                {errors.email && (
+                                    <span className="error-message">
+                                        {errors.email}
+                                    </span>
+                                )}
+                            </div>
+
+
+                            {/* DESCRIPTION */}
+
+                            <div>
+                                <textarea
+                                    name="description"
+                                    className={`inputDescription ${
+                                        errors.description
+                                            ? "input-error"
+                                            : ""
+                                    }`}
+                                    rows="5"
+                                    value={formData.description}
+                                    onChange={handleChange}
+                                />
+
+                                <label
+                                    htmlFor="description"
+                                    className="descriptionLabel"
+                                >
+                                    Description
+                                </label>
+
+                                {errors.description && (
+                                    <span className="error-message">
+                                        {errors.description}
+                                    </span>
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        {/* SUBMIT BUTTON */}
+
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className={isSubmitting ? "submitting" : ""}
+                        >
+                            {isSubmitting ? "Submitting..." : "Submit"}
+                        </button>
+
+                    </form>
+                </Animate>
 
             </div>
 
 
-            {/* SUCCESS / ERROR MESSAGE */}
+            {/* =========================================
+                POPUP
+            ========================================= */}
 
-            {message && (
-              <div className="contact__content__success-message">
-                {message}
-              </div>
+            {popup.show && (
+                <div
+                    className="contact__popup-overlay"
+                    onClick={closePopup}
+                >
+                    <div
+                        className={`contact__popup ${
+                            popup.type === "success"
+                                ? "contact__popup--success"
+                                : "contact__popup--error"
+                        }`}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+
+                        <button
+                            className="contact__popup-close"
+                            onClick={closePopup}
+                            aria-label="Close popup"
+                        >
+                            ×
+                        </button>
+
+                        <div className="contact__popup-icon">
+                            {popup.type === "success" ? "✓" : "!"}
+                        </div>
+
+                        <h3>
+                            {popup.title}
+                        </h3>
+
+                        <p>
+                            {popup.message}
+                        </p>
+
+                        <button
+                            className="contact__popup-button"
+                            onClick={closePopup}
+                        >
+                            Close
+                        </button>
+
+                    </div>
+                </div>
             )}
 
-
-            <button type="submit">
-              Submit
-            </button>
-
-          </form>
-
-        </Animate>
-
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Contact;

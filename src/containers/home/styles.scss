@@ -160,6 +160,7 @@
 .home {
     position: relative;
     height: calc(100vh - 80px);
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -170,16 +171,22 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
         text-align: center;
         width: 100%;
 
         h1 {
             color: var(--yellow-theme-main-color);
+
             margin: 0px;
+
             font-weight: 500;
+
             font-size: 8rem;
             line-height: 10rem;
+
             position: relative;
+
             overflow: hidden;
             white-space: nowrap;
 
@@ -191,53 +198,158 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+
         width: 100%;
+
         margin-top: 30px;
 
         animation: buttonAnimation 1s ease-out 2.5s both;
 
         button {
             cursor: pointer;
-            padding: 10px 65px;
-            font-size: 2rem;
-            background: transparent;
-            color: var(--yellow-theme-main-color);
-            border: 1.5px solid var(--yellow-theme-main-color);
-            border-radius: 4px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
 
-        button:hover {
-            background: var(--yellow-theme-main-color);
-            color: #000;
-            transform: translateY(-5px);
+            padding: 10px 65px;
+
+            font-size: 2rem;
+
+            background: transparent;
+
+            color: var(--yellow-theme-main-color);
+
+            border: 1.5px solid var(--yellow-theme-main-color);
+
+            border-radius: 4px;
+
+            font-weight: 500;
+
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: var(--yellow-theme-main-color);
+
+                color: #000;
+
+                transform: translateY(-5px);
+            }
+        }
+    }
+
+    // ==========================================
+    // SOCIAL MEDIA ICONS
+    // ==========================================
+
+    &__social-icons {
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        gap: 22px;
+
+        margin-top: 25px;
+
+        a {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            width: 45px;
+            height: 45px;
+
+            color: var(--yellow-theme-main-color);
+
+            font-size: 24px;
+
+            border: 1.5px solid var(--yellow-theme-main-color);
+
+            border-radius: 50%;
+
+            text-decoration: none;
+
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: var(--yellow-theme-main-color);
+
+                color: #000;
+
+                transform: translateY(-5px);
+
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
         }
     }
 }
+
+
+// ==========================================
+// RESPONSIVE
+// ==========================================
 
 @media only screen and (max-width: 550px) {
-    .home__text-wrapper h1 {
-        font-size: 3rem;
-        line-height: 5rem;
+
+    .home {
+
+        &__text-wrapper {
+
+            h1 {
+                font-size: 3rem;
+                line-height: 5rem;
+            }
+        }
+
+        &__social-icons {
+            gap: 15px;
+
+            a {
+                width: 40px;
+                height: 40px;
+
+                font-size: 20px;
+            }
+        }
     }
 }
+
 
 @media only screen and (min-width: 551px) and (max-width: 768px) {
-    .home__text-wrapper h1 {
-        font-size: 4rem;
-        line-height: 6rem;
+
+    .home {
+
+        &__text-wrapper {
+
+            h1 {
+                font-size: 4rem;
+                line-height: 6rem;
+            }
+        }
     }
 }
+
 
 @media only screen and (min-width: 769px) and (max-width: 990px) {
-    .home__text-wrapper h1 {
-        font-size: 6rem;
-        line-height: 8rem;
+
+    .home {
+
+        &__text-wrapper {
+
+            h1 {
+                font-size: 6rem;
+                line-height: 8rem;
+            }
+        }
     }
 }
 
+
+// ==========================================
+// TYPING ANIMATION
+// ==========================================
+
 @keyframes typingEffectAnimation {
+
     from {
         width: 0;
     }
@@ -247,14 +359,22 @@
     }
 }
 
+
+// ==========================================
+// BUTTON ANIMATION
+// ==========================================
+
 @keyframes buttonAnimation {
+
     from {
         opacity: 0;
+
         transform: translateY(100px);
     }
 
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 }

@@ -1,7 +1,6 @@
 
 
 
-
 const particlesOptions = {
   background: {
     color: {

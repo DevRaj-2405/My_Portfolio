@@ -1,202 +1,516 @@
-
-
-
-
-
 .contact {
-  &__content {
-    padding: 20px;
+    &__content {
+        padding: 20px;
 
-    &__header-text {
-      color: var(--yellow-theme-sub-text-color);
-      display: inline-block;
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 1em;
-      letter-spacing: 0.5px;
-      position: relative;
-      text-transform: uppercase;
-      padding: 5px 10px;
-      border-bottom: 2px solid var(--yellow-theme-main-color);
-    }
+        &__header-text {
+            color: var(--yellow-theme-sub-text-color);
 
-    &__header-text::before,
-    &__header-text::after {
-      position: absolute;
-      content: "";
-      width: 2px;
-      height: 5px;
-      background-color: var(--yellow-theme-main-color);
-      bottom: -1px;
-    }
+            display: inline-block;
 
-    &__header-text::before {
-      left: 0;
-    }
+            font-size: 22px;
+            font-weight: 600;
 
-    &__header-text::after {
-      right: 0;
-    }
+            line-height: 1em;
+            letter-spacing: 0.5px;
 
-    &__form {
-      margin-top: 30px;
-
-      &__controlswrapper {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-        margin-bottom: 30px;
-
-        div {
-          position: relative;
-
-          .inputName,
-          .inputEmail,
-          .inputDescription {
-            width: 100%;
-            border: 2px solid var(--yellow-theme-main-color);
-            padding: 16px 12px;
-            transition: all 0.5s ease;
             position: relative;
-            background-color: transparent;
-            color: var(--yellow-theme-sub-text-color);
-            box-sizing: border-box;
-            font-size: 16px;
-          }
 
-          .inputName,
-          .inputEmail {
-            height: 55px;
-          }
+            text-transform: uppercase;
 
-          .inputDescription {
-            min-height: 150px;
-            resize: vertical;
-            font-family: inherit;
-          }
+            padding: 5px 10px;
 
-          .nameLabel,
-          .emailLabel,
-          .descriptionLabel {
-            font-weight: 500;
-            position: absolute;
-            top: 7px;
-            left: 12px;
-            transition: all 0.2s ease;
-            color: var(--yellow-theme-sub-text-color);
-            font-size: 16px;
-            pointer-events: none;
-            background-color: transparent;
-          }
-
-          .inputName:focus,
-          .inputEmail:focus,
-          .inputDescription:focus {
-            outline: none;
-          }
-
-          .inputName:focus + .nameLabel,
-          .inputName:valid + .nameLabel,
-          .inputEmail:focus + .emailLabel,
-          .inputEmail:valid + .emailLabel,
-          .inputDescription:focus + .descriptionLabel,
-          .inputDescription:valid + .descriptionLabel {
-            font-size: 18px;
-            top: -25px;
-            left: 0;
-          }
-
-          // ==========================================
-          // ERROR MESSAGE
-          // ==========================================
-
-          .error-message {
-            display: block;
-            margin-top: 7px;
-            color: #ff4d4d;
-            font-size: 13px;
-            font-weight: 500;
-            text-align: left;
-          }
-
-          // ==========================================
-          // ERROR INPUT
-          // ==========================================
-
-          .input-error {
-            border-color: #ff4d4d !important;
-          }
-
-          // ==========================================
-          // SUCCESS INPUT
-          // ==========================================
-
-          .input-success {
-            border-color: #4caf50 !important;
-          }
+            border-bottom: 2px solid var(--yellow-theme-main-color);
         }
-      }
+
+        &__header-text::before,
+        &__header-text::after {
+            position: absolute;
+
+            content: "";
+
+            width: 2px;
+            height: 5px;
+
+            background-color: var(--yellow-theme-main-color);
+
+            bottom: -1px;
+        }
+
+        &__header-text::before {
+            left: 0;
+        }
+
+        &__header-text::after {
+            right: 0;
+        }
+
+        // ==========================================
+        // FORM
+        // ==========================================
+
+        &__form {
+            margin-top: 30px;
+
+            &__controlswrapper {
+                display: grid;
+
+                grid-template-columns: repeat(2, 1fr);
+
+                gap: 40px;
+
+                margin-bottom: 30px;
+
+                div {
+                    position: relative;
+
+                    .inputName,
+                    .inputEmail,
+                    .inputDescription {
+                        width: 100%;
+
+                        border: 2px solid
+                            var(--yellow-theme-main-color);
+
+                        padding: 16px 12px;
+
+                        transition: all 0.3s ease;
+
+                        position: relative;
+
+                        background-color: transparent;
+
+                        color: var(--yellow-theme-sub-text-color);
+
+                        box-sizing: border-box;
+
+                        font-size: 16px;
+                    }
+
+                    .inputName,
+                    .inputEmail {
+                        height: 55px;
+                    }
+
+                    .inputDescription {
+                        min-height: 150px;
+
+                        resize: vertical;
+
+                        font-family: inherit;
+                    }
+
+                    // ==================================
+                    // LABELS
+                    // ==================================
+
+                    .nameLabel,
+                    .emailLabel,
+                    .descriptionLabel {
+                        font-weight: 500;
+
+                        position: absolute;
+
+                        top: 7px;
+                        left: 12px;
+
+                        transition: all 0.2s ease;
+
+                        color: var(--yellow-theme-sub-text-color);
+
+                        font-size: 16px;
+
+                        pointer-events: none;
+
+                        background-color: transparent;
+                    }
+
+                    // ==================================
+                    // FOCUS
+                    // ==================================
+
+                    .inputName:focus,
+                    .inputEmail:focus,
+                    .inputDescription:focus {
+                        outline: none;
+
+                        box-shadow: 0 0 8px
+                            rgba(255, 193, 7, 0.2);
+                    }
+
+                    // ==================================
+                    // FLOATING LABEL
+                    // ==================================
+
+                    .inputName:focus + .nameLabel,
+                    .inputName:not(:placeholder-shown) + .nameLabel,
+
+                    .inputEmail:focus + .emailLabel,
+                    .inputEmail:not(:placeholder-shown) + .emailLabel,
+
+                    .inputDescription:focus + .descriptionLabel,
+                    .inputDescription:not(:placeholder-shown)
+                        + .descriptionLabel {
+                        font-size: 18px;
+
+                        top: -25px;
+
+                        left: 0;
+                    }
+
+                    // ==================================
+                    // ERROR MESSAGE
+                    // ==================================
+
+                    .error-message {
+                        display: block;
+
+                        margin-top: 7px;
+
+                        color: #ff4d4d;
+
+                        font-size: 13px;
+
+                        font-weight: 500;
+
+                        text-align: left;
+                    }
+
+                    // ==================================
+                    // ERROR INPUT
+                    // ==================================
+
+                    .input-error {
+                        border-color: #ff4d4d !important;
+
+                        box-shadow: 0 0 6px
+                            rgba(255, 77, 77, 0.2);
+                    }
+                }
+            }
+
+            // ==========================================
+            // SUBMIT BUTTON
+            // ==========================================
+
+            button {
+                cursor: pointer;
+
+                padding: 10px 70px;
+
+                font-size: 2rem;
+
+                background: transparent;
+
+                color: var(--yellow-theme-main-color);
+
+                border: 1.5px solid
+                    var(--yellow-theme-main-color);
+
+                border-radius: 4px;
+
+                font-weight: 500;
+
+                transition: all 0.3s ease;
+
+                &:hover:not(:disabled) {
+                    color: #000;
+
+                    background: var(--yellow-theme-main-color);
+
+                    transform: translateY(-2px);
+                }
+
+                &:active:not(:disabled) {
+                    transform: scale(0.97);
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
+
+                    opacity: 0.6;
+                }
+            }
+
+            .submitting {
+                pointer-events: none;
+            }
+        }
     }
 
-    // ==============================================
-    // SUBMIT BUTTON
-    // ==============================================
 
-    button {
-      cursor: pointer;
-      padding: 10px 70px;
-      font-size: 2rem;
-      background: transparent;
-      color: var(--yellow-theme-main-color);
-      border: 1.5px solid var(--yellow-theme-main-color);
-      border-radius: 4px;
-      font-weight: 500;
-      transition: all 0.3s ease;
+    // =====================================================
+    // POPUP OVERLAY
+    // =====================================================
 
-      &:hover {
-        color: #000;
-        background: var(--yellow-theme-main-color);
-      }
+    &__popup-overlay {
+        position: fixed;
 
-      &:active {
-        transform: scale(0.97);
-      }
+        inset: 0;
+
+        z-index: 9999;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        padding: 20px;
+
+        background: rgba(0, 0, 0, 0.7);
+
+        backdrop-filter: blur(4px);
+
+        animation: popupOverlay 0.25s ease;
     }
 
-    // ==============================================
+
+    // =====================================================
+    // POPUP
+    // =====================================================
+
+    &__popup {
+        position: relative;
+
+        width: 100%;
+
+        max-width: 450px;
+
+        padding: 40px 30px 30px;
+
+        text-align: center;
+
+        border-radius: 10px;
+
+        background: #111;
+
+        border: 2px solid
+            var(--yellow-theme-main-color);
+
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+
+        animation: popupAppear 0.3s ease;
+
+
+        // ================================================
+        // POPUP ICON
+        // ================================================
+
+        &-icon {
+            width: 65px;
+
+            height: 65px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            border-radius: 50%;
+
+            font-size: 35px;
+
+            font-weight: 700;
+
+            color: #000;
+
+            background: var(--yellow-theme-main-color);
+        }
+
+
+        // ================================================
+        // TITLE
+        // ================================================
+
+        h3 {
+            margin: 0 0 12px;
+
+            color: var(--yellow-theme-main-color);
+
+            font-size: 24px;
+
+            font-weight: 600;
+        }
+
+
+        // ================================================
+        // MESSAGE
+        // ================================================
+
+        p {
+            margin: 0 auto 25px;
+
+            max-width: 360px;
+
+            color: var(--yellow-theme-sub-text-color);
+
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+
+        // ================================================
+        // CLOSE X
+        // ================================================
+
+        &-close {
+            position: absolute;
+
+            top: 10px;
+
+            right: 14px;
+
+            width: 35px;
+
+            height: 35px;
+
+            padding: 0;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--yellow-theme-sub-text-color);
+
+            font-size: 30px;
+
+            line-height: 1;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+
+            &:hover {
+                color: var(--yellow-theme-main-color);
+
+                transform: rotate(90deg);
+            }
+        }
+
+
+        // ================================================
+        // POPUP BUTTON
+        // ================================================
+
+        &-button {
+            padding: 10px 30px;
+
+            border: 1.5px solid
+                var(--yellow-theme-main-color);
+
+            border-radius: 4px;
+
+            background: transparent;
+
+            color: var(--yellow-theme-main-color);
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: var(--yellow-theme-main-color);
+
+                color: #000;
+            }
+        }
+    }
+
+
+    // =====================================================
     // SUCCESS POPUP
-    // ==============================================
+    // =====================================================
 
-    &__success-message {
-      margin-top: 20px;
-      padding: 14px 20px;
-      border: 1px solid #4caf50;
-      border-radius: 5px;
-      color: #4caf50;
-      background: rgba(76, 175, 80, 0.08);
-      font-size: 16px;
-      font-weight: 500;
-      text-align: center;
-      animation: successMessage 0.4s ease;
+    &__popup--success {
+        border-color: #4caf50;
+
+        .contact__popup-icon {
+            background: #4caf50;
+        }
+
+        h3 {
+            color: #4caf50;
+        }
+
+        .contact__popup-button {
+            border-color: #4caf50;
+
+            color: #4caf50;
+
+            &:hover {
+                background: #4caf50;
+
+                color: #000;
+            }
+        }
     }
-  }
+
+
+    // =====================================================
+    // ERROR POPUP
+    // =====================================================
+
+    &__popup--error {
+        border-color: #ff4d4d;
+
+        .contact__popup-icon {
+            background: #ff4d4d;
+        }
+
+        h3 {
+            color: #ff4d4d;
+        }
+
+        .contact__popup-button {
+            border-color: #ff4d4d;
+
+            color: #ff4d4d;
+
+            &:hover {
+                background: #ff4d4d;
+
+                color: #000;
+            }
+        }
+    }
 }
 
 
 // =====================================================
-// SUCCESS MESSAGE ANIMATION
+// POPUP ANIMATIONS
 // =====================================================
 
-@keyframes successMessage {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
+@keyframes popupOverlay {
+    from {
+        opacity: 0;
+    }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes popupAppear {
+    from {
+        opacity: 0;
+
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0) scale(1);
+    }
 }
 
 
@@ -205,34 +519,35 @@
 // =====================================================
 
 @media only screen and (max-width: 768px) {
-  .contact {
-    &__content {
-      padding: 20px;
+    .contact {
+        &__content {
+            padding: 20px;
 
-      &__form {
-        text-align: center;
+            &__form {
+                text-align: center;
 
-        &__controlswrapper {
-          grid-template-columns: repeat(1, 1fr);
-          gap: 35px;
+                &__controlswrapper {
+                    grid-template-columns: 1fr;
 
-          div {
-            width: 100%;
+                    gap: 35px;
 
-            .inputName,
-            .inputEmail,
-            .inputDescription {
-              width: 100%;
+                    div {
+                        width: 100%;
+
+                        .inputName,
+                        .inputEmail,
+                        .inputDescription {
+                            width: 100%;
+                        }
+
+                        .error-message {
+                            text-align: left;
+                        }
+                    }
+                }
             }
-
-            .error-message {
-              text-align: left;
-            }
-          }
         }
-      }
     }
-  }
 }
 
 
@@ -241,63 +556,83 @@
 // =====================================================
 
 @media only screen and (max-width: 480px) {
-  .contact {
-    &__content {
-      padding: 15px;
+    .contact {
+        &__content {
+            padding: 15px;
 
-      &__header-text {
-        font-size: 19px;
-      }
-
-      &__form {
-        margin-top: 30px;
-
-        &__controlswrapper {
-          gap: 35px;
-
-          div {
-            .inputName,
-            .inputEmail,
-            .inputDescription {
-              font-size: 14px;
-              padding: 14px 10px;
+            &__header-text {
+                font-size: 19px;
             }
 
-            .nameLabel,
-            .emailLabel,
-            .descriptionLabel {
-              font-size: 14px;
-              left: 10px;
+            &__form {
+                margin-top: 30px;
+
+                &__controlswrapper {
+                    gap: 35px;
+
+                    div {
+                        .inputName,
+                        .inputEmail,
+                        .inputDescription {
+                            font-size: 14px;
+
+                            padding: 14px 10px;
+                        }
+
+                        .nameLabel,
+                        .emailLabel,
+                        .descriptionLabel {
+                            font-size: 14px;
+
+                            left: 10px;
+                        }
+
+                        .inputName:focus + .nameLabel,
+                        .inputName:not(:placeholder-shown)
+                            + .nameLabel,
+
+                        .inputEmail:focus + .emailLabel,
+                        .inputEmail:not(:placeholder-shown)
+                            + .emailLabel,
+
+                        .inputDescription:focus
+                            + .descriptionLabel,
+                        .inputDescription:not(:placeholder-shown)
+                            + .descriptionLabel {
+                            font-size: 16px;
+
+                            top: -23px;
+
+                            left: 0;
+                        }
+
+                        .error-message {
+                            font-size: 12px;
+                        }
+                    }
+                }
             }
 
-            .inputName:focus + .nameLabel,
-            .inputName:valid + .nameLabel,
-            .inputEmail:focus + .emailLabel,
-            .inputEmail:valid + .emailLabel,
-            .inputDescription:focus + .descriptionLabel,
-            .inputDescription:valid + .descriptionLabel {
-              font-size: 16px;
-              top: -23px;
-              left: 0;
-            }
+            button {
+                width: 100%;
 
-            .error-message {
-              font-size: 12px;
+                padding: 10px 30px;
+
+                font-size: 1.5rem;
             }
-          }
         }
-      }
-
-      button {
-        width: 100%;
-        padding: 10px 30px;
-        font-size: 1.5rem;
-      }
-
-      &__success-message {
-        font-size: 14px;
-      }
     }
-  }
-}
 
+
+    .contact__popup {
+        padding: 35px 20px 25px;
+
+        h3 {
+            font-size: 20px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+    }
+}
